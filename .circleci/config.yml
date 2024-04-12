@@ -4,6 +4,7 @@ setup: true
 
 orbs:
   continuation: circleci/continuation@0.2.0
+  node: circleci/node@5.1.0
 
 jobs:
   setup:
@@ -12,6 +13,9 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: echo hello world
+      - node/install-packages:
+          app-dir: .circleci/generated
       - run: node .circleci/generated/generated.index.js
       - continuation/continue:
           configuration_path: basic_workflow.yml
